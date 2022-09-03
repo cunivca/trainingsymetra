@@ -8,7 +8,7 @@ class stock_move(models.Model):
     @api.depends("scheduled_date", "create_date")
     def _count_planned_duration(self):
         for record in self:
-            if record.scheduled_date and record.create_date:
+            if record.scheduled_date:
                 scheduled_round = record.scheduled_date.replace(hour = 0, minute = 0, second = 0, microsecond = 0)
                 create_round = record.create_date.replace(hour = 0, minute = 0, second = 0, microsecond = 0)
                 record.planned_duration = (scheduled_round - create_round).days
